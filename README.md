@@ -45,4 +45,4 @@ sudo apt-get install libfftw3-dev
 ```
 
 ### Doc
-* http://moss.csc.ncsu.edu/~mueller/cluster/nvidia/0.8/NVIDIA_CUFFT_Library_0.8.pdf
+* http://developer.download.nvidia.com/compute/cuda/1.0/CUFFT_Library_1.0.pdf
