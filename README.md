@@ -12,6 +12,10 @@
     } cufftType;
 ```
 
+Define data type: cufftComplex
+
+A single-precision, floating-point complex data type that consists of interleaved real and imaginary components.
+
 ### 1D 
 ```
 cufftPlan1d
