@@ -19,7 +19,8 @@ A single-precision, floating-point complex data type that consists of interleave
     } cufftType;
 ```
 
-* Create a simple plan for a 1D/2D/3D transform respectively.
+* Create a simple plan for a 1D/2D/3D transform respectively. 
+[link](http://docs.nvidia.com/cuda/cufft/index.html#function-cufftplan1d)
 ```
 cufftResult cufftPlan1d(cufftHandle *plan, int nx, cufftType type, int batch);
 cufftResult cufftPlan2d(cufftHandle *plan, int nx, int ny, cufftType type);
