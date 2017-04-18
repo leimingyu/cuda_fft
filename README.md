@@ -22,3 +22,5 @@ cufftPlan1d
 * http://www.cv.nrao.edu/~pdemores/gpu/
 * https://github.com/moznion/fftw-vs-cufft
 
+fftw3 (cpu)
+* http://people.sc.fsu.edu/~jburkardt/c_src/fftw3/fftw3.html
