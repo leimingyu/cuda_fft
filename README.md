@@ -19,10 +19,11 @@ A single-precision, floating-point complex data type that consists of interleave
     } cufftType;
 ```
 
-
-### 1D 
+* Create a simple plan for a 1D/2D/3D transform respectively.
 ```
-cufftPlan1d
+cufftResult cufftPlan1d(cufftHandle *plan, int nx, cufftType type, int batch);
+cufftResult cufftPlan2d(cufftHandle *plan, int nx, int ny, cufftType type);
+cufftResult cufftPlan3d(cufftHandle *plan, int nx, int ny, int nz, cufftType type);
 ```
 
 
