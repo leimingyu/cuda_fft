@@ -13,3 +13,10 @@
 ```
 
 ### 1D 
+```
+cufftPlan1d
+```
+
+
+### benchmarking
+* http://www.cv.nrao.edu/~pdemores/gpu/
