@@ -18,5 +18,7 @@ cufftPlan1d
 ```
 
 
-### benchmarking
+### Benchmarking
 * http://www.cv.nrao.edu/~pdemores/gpu/
+* https://github.com/moznion/fftw-vs-cufft
+
