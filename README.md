@@ -1,6 +1,13 @@
 # cuda_fft
 
 ### Parameters
+
+
+* cufftComplex
+
+A single-precision, floating-point complex data type that consists of interleaved real and imaginary components.
+
+* cufftType
 ```
     typedef enum cufftType_t { 
     CUFFT_R2C = 0x2a, // Real to complex (interleaved) 
@@ -12,9 +19,6 @@
     } cufftType;
 ```
 
-Define data type: cufftComplex
-
-A single-precision, floating-point complex data type that consists of interleaved real and imaginary components.
 
 ### 1D 
 ```
