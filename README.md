@@ -27,6 +27,12 @@ cufftResult cufftPlan2d(cufftHandle *plan, int nx, int ny, cufftType type);
 cufftResult cufftPlan3d(cufftHandle *plan, int nx, int ny, int nz, cufftType type);
 ```
 
+* Run cuda fft
+```
+cufftExecC2C() / cufftExecZ2Z() - complex-to-complex transforms for single/double precision.
+cufftExecR2C() / cufftExecD2Z() - real-to-complex forward transform for single/double precision.
+cufftExecC2R() / cufftExecZ2D() - complex-to-real inverse transform for single/double precision.
+```
 
 ### Benchmarking
 * http://www.cv.nrao.edu/~pdemores/gpu/
