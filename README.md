@@ -35,3 +35,6 @@ fftw3 (cpu)
 ```
 sudo apt-get install libfftw3-dev
 ```
+
+### Doc
+* http://moss.csc.ncsu.edu/~mueller/cluster/nvidia/0.8/NVIDIA_CUFFT_Library_0.8.pdf
