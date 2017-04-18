@@ -24,3 +24,6 @@ cufftPlan1d
 
 fftw3 (cpu)
 * http://people.sc.fsu.edu/~jburkardt/c_src/fftw3/fftw3.html
+```
+sudo apt-get install libfftw3-dev
+```
