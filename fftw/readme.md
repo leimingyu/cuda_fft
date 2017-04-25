@@ -1,4 +1,7 @@
-#FFTW
+# FFTW
+
+### Doc
+[official manual](http://www.fftw.org/fftw3.pdf)
 
 ### Usage
 ```
