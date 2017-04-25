@@ -1,7 +1,8 @@
 # FFTW
 
 ### Doc
-[official manual](http://www.fftw.org/fftw3.pdf)
+* [html](http://www.fftw.org/fftw3_doc/index.html#SEC_Contents)
+* [pdf](http://www.fftw.org/fftw3.pdf)
 
 ### Program Usage
 ```
