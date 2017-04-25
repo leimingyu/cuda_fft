@@ -6,15 +6,23 @@
 
 ### Program Usage
 ```
-leiming@homedesktop:~/git/cuda_fft/fftw$ ./fftw 
-[LOG] Signal Length: 4096
-[LOG] FFT run: 10000
+leiming@homedesktop:~/git/cuda_fft/fftw$ ./fftw -l 10240 -r 1 -t 10
+[LOG] Signal Length: 10240
+[LOG] FFT run: 1
 [LOG] Trials: 10
-
-leiming@homedesktop:~/git/cuda_fft/fftw$ ./fftw -l 1024 -r 1024 -t 20
-[LOG] Signal Length: 1024
-[LOG] FFT run: 1024
-[LOG] Trials: 20
+[LOG] Run FFTW ...
+0.000063 sec
+0.000023 sec
+0.000023 sec
+0.000023 sec
+0.000023 sec
+0.000023 sec
+0.000023 sec
+0.000023 sec
+0.000023 sec
+0.000023 sec
+[LOG] Finished!
+[LOG] Average: 0.000027 sec
 ```
 
 ### Notes
