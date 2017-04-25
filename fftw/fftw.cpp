@@ -73,35 +73,35 @@ int main(int argc, char **argv)
 		input[i][0] = (float)rand() / RAND_MAX;
 		input[i][1] = 0.f;
 	}
-	
+
 
 	fftwf_plan plan_fp32;
 
-    plan_fp32 = fftwf_plan_dft_1d(sig_len, input, output, FFTW_FORWARD, FFTW_ESTIMATE);
+	plan_fp32 = fftwf_plan_dft_1d(sig_len, input, output, FFTW_FORWARD, FFTW_ESTIMATE);
 
 
 	/*
 	 * Benchmarking
 	 */
 	double sum_of_elapsed_times = 0.0;
-    double start, end;
+	double start, end;
 
-    printf("[LOG] Run FFTW ...\n");
-    for (int i = 0; i < trials; i++) {
-        start = omp_get_wtime(); // timing : not multi-threaded
+	printf("[LOG] Run FFTW ...\n");
+	for (int i = 0; i < trials; i++) {
+		start = omp_get_wtime(); // timing : not multi-threaded
 
-        for (int j = 0; j < fft_run; j++) {
-            fftwf_execute(plan_fp32);
-        }
+		for (int j = 0; j < fft_run; j++) {
+			fftwf_execute(plan_fp32);
+		}
 
-        end = omp_get_wtime();
+		end = omp_get_wtime();
 
-        double elapsed_time_sec = end - start;
-        sum_of_elapsed_times += elapsed_time_sec;
-        printf("%lf sec\n", elapsed_time_sec);
-    }
-    printf("[LOG] Finished!\n");
-    printf("[LOG] Average: %lf sec\n", sum_of_elapsed_times / trials);
+		double elapsed_time_sec = end - start;
+		sum_of_elapsed_times += elapsed_time_sec;
+		printf("%lf sec\n", elapsed_time_sec);
+	}
+	printf("[LOG] Finished!\n");
+	printf("[LOG] Average: %lf sec\n", sum_of_elapsed_times / trials);
 
 
 
