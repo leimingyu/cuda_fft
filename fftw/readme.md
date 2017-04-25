@@ -3,7 +3,7 @@
 ### Doc
 [official manual](http://www.fftw.org/fftw3.pdf)
 
-### Usage
+### Program Usage
 ```
 leiming@homedesktop:~/git/cuda_fft/fftw$ ./fftw 
 [LOG] Signal Length: 4096
