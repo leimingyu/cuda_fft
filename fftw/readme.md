@@ -15,3 +15,6 @@ leiming@homedesktop:~/git/cuda_fft/fftw$ ./fftw -l 1024 -r 1024 -t 20
 [LOG] FFT run: 1024
 [LOG] Trials: 20
 ```
+
+### Notes
+* dht can be more efficient than dft for real data
