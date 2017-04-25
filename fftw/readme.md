@@ -1,4 +1,4 @@
-# FFTW
+# FFTW (ver 3.3.4)
 
 ### Doc
 * [html](http://www.fftw.org/fftw3_doc/index.html#SEC_Contents)
