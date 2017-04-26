@@ -33,3 +33,6 @@ cufftExecC2C() / cufftExecZ2Z() - complex-to-complex transforms for single/doubl
 cufftExecR2C() / cufftExecD2Z() - real-to-complex forward transform for single/double precision.
 cufftExecC2R() / cufftExecZ2D() - complex-to-real inverse transform for single/double precision.
 ```
+
+### features
+* mpi + cufft ([ppt](http://www.training.prace-ri.eu/uploads/tx_pracetmo/PRACE-Winter_school-CUDA_QE-Spiga.pdf))
