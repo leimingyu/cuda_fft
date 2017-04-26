@@ -4,6 +4,11 @@
 * [html](http://www.fftw.org/fftw3_doc/index.html#SEC_Contents)
 * [pdf](http://www.fftw.org/fftw3.pdf)
 
+### Installation
+```
+sudo apt-get install libfftw3-dev
+```
+
 ### Program Usage
 ```
 leiming@homedesktop:~/git/cuda_fft/fftw$ ./fftw -l 10240 -r 1 -t 10
@@ -37,3 +42,4 @@ leiming@homedesktop:~/git/cuda_fft/fftw$ ./fftw -l 10240 -r 1 -t 10
 * https://www.hoffman2.idre.ucla.edu/fftw/
 * http://toto-share.com/2012/07/cc-fftw-tutorial/
 * http://fftwpp.sourceforge.net/
+* http://people.sc.fsu.edu/~jburkardt/c_src/fftw3/fftw3.html
