@@ -5,8 +5,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-const int SigLen = 4096;
-const int FFTRun = 1;
+const int SigLen = 256;
+const int FFTRun = 10;
 const int Trials = 10;
 
 const char short_opt[] = {'l', 'r', 't', 'u', '\0'};
