@@ -57,6 +57,7 @@ int main(int argc, char **argv)
 	printf("[LOG] FFT run: %d\n", fft_run);
 	printf("[LOG] Trials: %d\n", trials);
 
+	printf("[LOG] Start 1d-fft CPU.\n");
 	/*
 	 * Parameters
 	 */
@@ -71,9 +72,13 @@ int main(int argc, char **argv)
 	srand(time(NULL));
 	for (int i = 0; i < sig_len; i++) {
 		input[i][0] = (float)rand() / RAND_MAX;
-		input[i][1] = 0.f;
+		input[i][1] = (float)rand() / RAND_MAX;
 	}
 
+	/*
+	 * fftw plan 
+	 */
+	printf("[LOG] Create C2C plan for %i on CPU.\n", sig_len);
 
 	fftwf_plan plan_fp32;
 
@@ -86,7 +91,7 @@ int main(int argc, char **argv)
 	double sum_of_elapsed_times = 0.0;
 	double start, end;
 
-	printf("[LOG] Run FFTW ...\n");
+	printf("[LOG] Benchmarking FFTW ...\n");
 	for (int i = 0; i < trials; i++) {
 		start = omp_get_wtime(); // timing : not multi-threaded
 
@@ -98,11 +103,11 @@ int main(int argc, char **argv)
 
 		double elapsed_time_sec = end - start;
 		sum_of_elapsed_times += elapsed_time_sec;
-		printf("%lf sec\n", elapsed_time_sec);
+		printf("%lf sec (%d iters)\n", elapsed_time_sec, fft_run);
 	}
 	printf("[LOG] Finished!\n");
-	printf("[LOG] Average: %lf sec\n", sum_of_elapsed_times / trials);
-
+	printf("[LOG] Average: %lf sec (per %d iters)\n", 
+			sum_of_elapsed_times / (double)trials, fft_run);
 
 
 	/*
