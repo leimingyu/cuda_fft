@@ -76,7 +76,7 @@ int main(int argc, char **argv)
 	srand(time(NULL));
 	for (int i = 0; i < sig_len; i++) {
 		h_sig[i].x = (float)rand() / RAND_MAX;
-		h_sig[i].y = 0.0;
+		h_sig[i].y = (float)rand() / RAND_MAX;
 	}
 
 	//------------------------------------------------------------------------//
@@ -97,7 +97,7 @@ int main(int argc, char **argv)
 	printf("[LOG] Create C2C plan for %i on GPU.\n", sig_len);
 
 	cufftHandle cufft_plan;
-	
+
 	cufftPlan1d(&cufft_plan, sig_len, CUFFT_C2C, 1); // batch = 1
 
 	//------------------------------------------------------------------------//
@@ -134,12 +134,16 @@ int main(int argc, char **argv)
 	}
 
 	printf("[LOG] Finished!\n");
-	printf("[LOG] Average: %lf sec (per %d iters)\n", sum_gputime_ms * 1e-3 / (double)trials, fft_run);
+	printf("[LOG] Average: %lf sec (per %d iters)\n", 
+			sum_gputime_ms * 1e-3 / (double)trials, fft_run);
 
 	//------------------------------------------------------------------------//
 	// free 
 	//------------------------------------------------------------------------//
 	checkCudaErrors(cufftDestroy(cufft_plan)); 	// cuda fft context
+
+	checkCudaErrors(cudaEventDestroy(start));
+	checkCudaErrors(cudaEventDestroy(stop));
 
 	checkCudaErrors(cudaFreeHost(h_sig));
 	checkCudaErrors(cudaFree(d_sig));
