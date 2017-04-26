@@ -9,7 +9,7 @@ Leiming Yu
 * Blog: http://www1.coe.neu.edu/~ylm/
 
 
-### Benchmarking
+## Benchmarking
 * http://www.cv.nrao.edu/~pdemores/gpu/
 * http://www.sharcnet.ca/~merz/CUDA_benchFFT/
 * https://github.com/moznion/fftw-vs-cufft
