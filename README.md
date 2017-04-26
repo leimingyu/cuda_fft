@@ -36,7 +36,9 @@ cufftExecC2R() / cufftExecZ2D() - complex-to-real inverse transform for single/d
 
 ### Benchmarking
 * http://www.cv.nrao.edu/~pdemores/gpu/
+* http://www.sharcnet.ca/~merz/CUDA_benchFFT/
 * https://github.com/moznion/fftw-vs-cufft
+
 
 fftw3 (cpu)
 * http://people.sc.fsu.edu/~jburkardt/c_src/fftw3/fftw3.html
