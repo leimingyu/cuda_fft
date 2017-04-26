@@ -2,7 +2,11 @@
 * Tutorial on using the cuFFT library (GPU).
 * Compare with fftw (CPU) performance. 
 
-### Author
+## Author
+Leiming Yu
+* Email: ylm@ece.neu.edu
+* Twitter: @yu_leiming
+* Blog: http://www1.coe.neu.edu/~ylm/
 
 
 ### Benchmarking
