@@ -34,18 +34,26 @@ endif
 #-----------------------------------------------------------------------------#
 # Build Targets
 #-----------------------------------------------------------------------------#
-
-EXE = cuFFT_1d cuFFT_2d cuFFT_3d 
+EXE = cuFFT_1d cuFFT_2d cuFFT_3d  cuFFT_1d_solution cuFFT_2d_solution cuFFT_3d_solution
 
 all: $(EXE)
 
 cuFFT_1d: cuFFT_1d.cu
 	$(NVC) $(NV_INC) $(NV_LIB) $(NVCC_FLAGS) $(GENCODE_FLAGS) -o $@ $< $(LIB_LINKER)
 
+cuFFT_1d_solution: cuFFT_1d_solution.cu
+	$(NVC) $(NV_INC) $(NV_LIB) $(NVCC_FLAGS) $(GENCODE_FLAGS) -o $@ $< $(LIB_LINKER)
+
 cuFFT_2d: cuFFT_2d.cu
 	$(NVC) $(NV_INC) $(NV_LIB) $(NVCC_FLAGS) $(GENCODE_FLAGS) -o $@ $< $(LIB_LINKER)
 
+cuFFT_2d_solution: cuFFT_2d_solution.cu
+	$(NVC) $(NV_INC) $(NV_LIB) $(NVCC_FLAGS) $(GENCODE_FLAGS) -o $@ $< $(LIB_LINKER)
+
 cuFFT_3d: cuFFT_3d.cu
+	$(NVC) $(NV_INC) $(NV_LIB) $(NVCC_FLAGS) $(GENCODE_FLAGS) -o $@ $< $(LIB_LINKER)
+
+cuFFT_3d_solution: cuFFT_3d_solution.cu
 	$(NVC) $(NV_INC) $(NV_LIB) $(NVCC_FLAGS) $(GENCODE_FLAGS) -o $@ $< $(LIB_LINKER)
 
 .PHONY: clean
