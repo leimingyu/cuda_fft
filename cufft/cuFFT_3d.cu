@@ -71,11 +71,12 @@ int main(int argc, char **argv)
 	// host memory
 	//------------------------------------------------------------------------//
 	cufftComplex *h_sig;
-	cudaMallocHost((void **) &h_sig, 
-			sizeof(cufftComplex) * sig_len * sig_len * sig_len);
+	// ToDo: allocate the right data size
+	cudaMallocHost((void **) &h_sig,  );
 
 	srand(time(NULL));
-	for (int i = 0; i < sig_len * sig_len * sig_len; i++) {
+	// ToDo: init the right data size
+	for (int i = 0; i < ; i++) {
 		h_sig[i].x = (float)rand() / RAND_MAX;
 		h_sig[i].y = (float)rand() / RAND_MAX;
 	}
@@ -84,23 +85,23 @@ int main(int argc, char **argv)
 	// device memory
 	//------------------------------------------------------------------------//
 	cufftComplex *d_sig, *d_result;
-	cudaMalloc((void **) &d_sig,    sizeof(cufftComplex) * sig_len * sig_len * sig_len);
-	cudaMalloc((void **) &d_result, sizeof(cufftComplex) * sig_len * sig_len * sig_len);
+	// ToDo: allocate the right data size
+	cudaMalloc((void **) &d_sig,    sizeof(cufftComplex) * );
+	cudaMalloc((void **) &d_result, sizeof(cufftComplex) * );
 
 	//------------------------------------------------------------------------//
 	// copy data from host to device 
 	//------------------------------------------------------------------------//
-	cudaMemcpyAsync(d_sig, h_sig, sizeof(cufftComplex) * sig_len * sig_len * sig_len, 
-			cudaMemcpyHostToDevice);
+	// ToDo: copy the right data size
+	cudaMemcpyAsync(d_sig, h_sig, ,  cudaMemcpyHostToDevice);
 
 	//------------------------------------------------------------------------//
 	// set up cuda fft env 
 	//------------------------------------------------------------------------//
 	printf("[LOG] Create C2C plan for %i x %i x %i on GPU.\n", sig_len, sig_len, sig_len);
 
-	cufftHandle cufft_plan3d;
-
-	cufftPlan3d(&cufft_plan3d, sig_len, sig_len, sig_len, CUFFT_C2C);
+	// ToDo: creat a handle and 3d plan
+	// http://docs.nvidia.com/cuda/cufft/index.html#function-cufftplan3d
 
 	//------------------------------------------------------------------------//
 	// gpu timer 
@@ -121,7 +122,8 @@ int main(int argc, char **argv)
 		cudaEventRecord(start, 0);
 
 		for (int j = 0; j < fft_run; j++) {
-			cufftExecC2C(cufft_plan3d, d_sig, d_result, CUFFT_FORWARD);
+			// ToDo: execute 3d plan using cufftExecC2C()
+			// http://docs.nvidia.com/cuda/cufft/index.html#function-cufftexecc2c-cufftexecz2z
 		}
 
 		cudaEventRecord(stop, 0);
