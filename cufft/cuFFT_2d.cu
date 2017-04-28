@@ -71,7 +71,8 @@ int main(int argc, char **argv)
 	// host memory
 	//------------------------------------------------------------------------//
 	cufftComplex *h_sig;
-	cudaMallocHost((void **) &h_sig, sizeof(cufftComplex) * sig_len * sig_len);
+	// ToDo: allocate 2d space
+	cudaMallocHost((void **) &h_sig, );
 
 	srand(time(NULL));
 	for (int i = 0; i < sig_len * sig_len; i++) {
@@ -83,14 +84,15 @@ int main(int argc, char **argv)
 	// device memory
 	//------------------------------------------------------------------------//
 	cufftComplex *d_sig, *d_result;
-	cudaMalloc((void **) &d_sig,    sizeof(cufftComplex) * sig_len * sig_len);
-	cudaMalloc((void **) &d_result, sizeof(cufftComplex) * sig_len * sig_len);
+	// ToDo : allocate 2d space
+	cudaMalloc((void **) &d_sig,    );
+	cudaMalloc((void **) &d_result, );
 
 	//------------------------------------------------------------------------//
 	// copy data from host to device 
 	//------------------------------------------------------------------------//
-	cudaMemcpyAsync(d_sig, h_sig, sizeof(cufftComplex) * sig_len * sig_len, 
-			cudaMemcpyHostToDevice);
+	// ToDo: copy data
+	cudaMemcpyAsync(d_sig, h_sig, , );
 
 	//------------------------------------------------------------------------//
 	// set up cuda fft env 
@@ -99,7 +101,10 @@ int main(int argc, char **argv)
 
 	cufftHandle cufft_plan2d;
 
-	cufftPlan2d(&cufft_plan2d, sig_len, sig_len, CUFFT_C2C);
+	// ToDo: 2d plan cufftPlan2d()
+	// http://docs.nvidia.com/cuda/cufft/index.html#function-cufftplan2d
+
+
 
 	//------------------------------------------------------------------------//
 	// gpu timer 
@@ -120,7 +125,8 @@ int main(int argc, char **argv)
 		cudaEventRecord(start, 0);
 
 		for (int j = 0; j < fft_run; j++) {
-			cufftExecC2C(cufft_plan2d, d_sig, d_result, CUFFT_FORWARD);
+			// ToDo: run cufft using cufftExecC2C()
+			// http://docs.nvidia.com/cuda/cufft/index.html#function-cufftexecc2c-cufftexecz2z
 		}
 
 		cudaEventRecord(stop, 0);
