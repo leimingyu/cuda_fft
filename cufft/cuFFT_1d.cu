@@ -70,26 +70,22 @@ int main(int argc, char **argv)
 	//------------------------------------------------------------------------//
 	// host memory
 	//------------------------------------------------------------------------//
-	cufftComplex *h_sig;
-	cudaMallocHost((void **) &h_sig, sizeof(cufftComplex) * sig_len);
+	// ToDo : allocate host memory using cufftComplex (h_sig) 
+	
 
-	srand(time(NULL));
-	for (int i = 0; i < sig_len; i++) {
-		h_sig[i].x = (float)rand() / RAND_MAX;
-		h_sig[i].y = (float)rand() / RAND_MAX;
-	}
+
+	// ToDo: init host memory ( hint : float2(float x, float y)) 
+
 
 	//------------------------------------------------------------------------//
 	// device memory
 	//------------------------------------------------------------------------//
-	cufftComplex *d_sig, *d_result;
-	cudaMalloc((void **) &d_sig,    sizeof(cufftComplex) * sig_len);
-	cudaMalloc((void **) &d_result, sizeof(cufftComplex) * sig_len);
+	// ToDo: allocate device memory for host data (d_sig) and  for output results (d_result)
 
 	//------------------------------------------------------------------------//
 	// copy data from host to device 
 	//------------------------------------------------------------------------//
-	cudaMemcpyAsync(d_sig, h_sig, sizeof(cufftComplex) * sig_len, cudaMemcpyHostToDevice);
+	// ToDo: copy data to device , hsig -> d_sig
 
 	//------------------------------------------------------------------------//
 	// set up cuda fft env 
@@ -98,7 +94,9 @@ int main(int argc, char **argv)
 
 	cufftHandle cufft_plan;
 
-	cufftPlan1d(&cufft_plan, sig_len, CUFFT_C2C, 1); // batch = 1
+	// ToDo: fill in the plan info 
+	// http://docs.nvidia.com/cuda/cufft/index.html#function-cufftplan1d
+	cufftPlan1d( );
 
 	//------------------------------------------------------------------------//
 	// gpu timer 
@@ -119,7 +117,9 @@ int main(int argc, char **argv)
 		cudaEventRecord(start, 0);
 
 		for (int j = 0; j < fft_run; j++) {
-			cufftExecC2C(cufft_plan, d_sig, d_result, CUFFT_FORWARD);
+			// ToDo: run c2c cufft
+			// http://docs.nvidia.com/cuda/cufft/index.html#function-cufftexecc2c-cufftexecz2z 
+			cufftExecC2C( );
 		}
 
 		cudaEventRecord(stop, 0);
@@ -145,7 +145,5 @@ int main(int argc, char **argv)
 	checkCudaErrors(cudaEventDestroy(start));
 	checkCudaErrors(cudaEventDestroy(stop));
 
-	checkCudaErrors(cudaFreeHost(h_sig));
-	checkCudaErrors(cudaFree(d_sig));
-	checkCudaErrors(cudaFree(d_result));
+	// ToDo: deallocate h_sig, d_sig, d_result
 }
