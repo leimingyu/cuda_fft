@@ -137,6 +137,10 @@ int main(int argc, char **argv)
 	printf("[LOG] Average: %lf sec (per %d iters)\n", 
 			sum_gputime_ms * 1e-3 / (double)trials, fft_run);
 
+	double fft_time_ms = sum_gputime_ms / (double)(trials * fft_run);
+	fft_throughput(fft_time_ms, (float)sig_len);
+
+
 	//------------------------------------------------------------------------//
 	// free 
 	//------------------------------------------------------------------------//

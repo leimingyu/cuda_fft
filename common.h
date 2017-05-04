@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 
 const int SigLen = 256;
 const int FFTRun = 10;
@@ -48,6 +49,13 @@ int read_opt(int argc, char **argv, int id, void *data, const char *datatype)
 	}
 
 	return id+1;
+}
+
+
+// measure throughput
+void fft_throughput(double time_ms, float fftlen)
+{
+	printf("Throughput : %lf GFlops\n", 5 * fftlen * log2f(fftlen) / (time_ms * 1e6));
 }
 
 
