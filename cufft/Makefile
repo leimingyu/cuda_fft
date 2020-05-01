@@ -25,7 +25,7 @@ endif
 
 LIB_LINKER = -lcudart -lcufft
 
-SMS ?= 30 35 50 52
+SMS ?= 30 35 50 52 60 61 70 75
 
 ifeq ($(GENCODE_FLAGS),)
   $(foreach sm,$(SMS),$(eval GENCODE_FLAGS += -gencode arch=compute_$(sm),code=sm_$(sm)))
@@ -34,7 +34,7 @@ endif
 #-----------------------------------------------------------------------------#
 # Build Targets
 #-----------------------------------------------------------------------------#
-EXE = cuFFT_1d cuFFT_2d cuFFT_3d  cuFFT_1d_solution cuFFT_2d_solution cuFFT_3d_solution
+EXE = cuFFT_1d cuFFT_2d cuFFT_3d  cuFFT_1d_solution cuFFT_2d_solution cuFFT_3d_solution test1d test1d_many
 
 all: $(EXE)
 
@@ -42,6 +42,12 @@ cuFFT_1d: cuFFT_1d.cu
 	$(NVC) $(NV_INC) $(NV_LIB) $(NVCC_FLAGS) $(GENCODE_FLAGS) -o $@ $< $(LIB_LINKER)
 
 cuFFT_1d_solution: cuFFT_1d_solution.cu
+	$(NVC) $(NV_INC) $(NV_LIB) $(NVCC_FLAGS) $(GENCODE_FLAGS) -o $@ $< $(LIB_LINKER)
+
+test1d: test1d.cu
+	$(NVC) $(NV_INC) $(NV_LIB) $(NVCC_FLAGS) $(GENCODE_FLAGS) -o $@ $< $(LIB_LINKER)
+
+test1d_many: test1d_many.cu
 	$(NVC) $(NV_INC) $(NV_LIB) $(NVCC_FLAGS) $(GENCODE_FLAGS) -o $@ $< $(LIB_LINKER)
 
 cuFFT_2d: cuFFT_2d.cu
