@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
+#include <assert.h>
 
 const int SigLen = 256;
 const int FFTRun = 10;
@@ -56,6 +57,18 @@ int read_opt(int argc, char **argv, int id, void *data, const char *datatype)
 void fft_throughput(double time_ms, float fftlen)
 {
 	printf("Throughput : %lf GFlops\n", 5 * fftlen * log2f(fftlen) / (time_ms * 1e6));
+}
+
+inline
+cudaError_t checkCuda(cudaError_t result)
+{
+#if defined(DEBUG) || defined(_DEBUG)
+	if (result != cudaSuccess) {
+		fprintf(stderr, "CUDA Runtime Error: %s\n", cudaGetErrorString(result));
+		assert(result == cudaSuccess);
+	}
+#endif
+	return result;
 }
 
 
