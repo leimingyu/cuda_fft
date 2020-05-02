@@ -109,19 +109,24 @@ int main(int argc, char **argv)
 	float *d1,*d2,*d3;
 	checkCuda( cudaMalloc((void**)&d1, sizeof(float) * 2048 * 64) );
 	checkCuda( cudaMalloc((void**)&d2, sizeof(float) * 4096 * 64) );
-	checkCuda( cudaMalloc((void**)&d3, sizeof(float) * 4098 * 64) );
+
+	//checkCuda( cudaMalloc((void**)&d3, sizeof(float) * 4098 * 64) );
+	checkCuda( cudaMalloc((void**)&d3, sizeof(float) * 4096 * 64) );
 
 	cufftComplex *d1_complex, *d2_complex, *d3_complex;
 	checkCuda( cudaMalloc((void**)&d1_complex, sizeof(cufftComplex) * 2048 * 64) );
 	checkCuda( cudaMalloc((void**)&d2_complex, sizeof(cufftComplex) * 4096 * 64) );
-	checkCuda( cudaMalloc((void**)&d3_complex, sizeof(cufftComplex) * 4098 * 64) );
+
+	//checkCuda( cudaMalloc((void**)&d3_complex, sizeof(cufftComplex) * 4098 * 64) );
+	checkCuda( cudaMalloc((void**)&d3_complex, sizeof(cufftComplex) * 4096 * 64) );
 
 	//------------------------------------------------------------------------//
 	// copy data from host to device 
 	//------------------------------------------------------------------------//
 	checkCuda( cudaMemcpy(d1, h1, sizeof(float)*64*2048, cudaMemcpyHostToDevice) );
 	checkCuda( cudaMemcpy(d2, h2, sizeof(float)*64*4096, cudaMemcpyHostToDevice) );
-	checkCuda( cudaMemcpy(d3, h3, sizeof(float)*64*4098, cudaMemcpyHostToDevice) );
+	//checkCuda( cudaMemcpy(d3, h3, sizeof(float)*64*4098, cudaMemcpyHostToDevice) );
+	checkCuda( cudaMemcpy(d3, h3, sizeof(float)*64*4096, cudaMemcpyHostToDevice) );
 
 	//------------------------------------------------------------------------//
 	// Create FFT plan 
@@ -155,10 +160,6 @@ int main(int argc, char **argv)
 
 	fftsize = 4096;
 	int n1[] = {fftsize};
-	if (cufftPlan1d(&fwd_plan_4k, 4096, CUFFT_R2C, 64) != CUFFT_SUCCESS){
-		fprintf(stderr, "CUFFT error: 4k Plan creation failed");
-		return -2;	
-	}	
 
 	if (cufftPlanMany(&fwd_plan_4k,
 					  1, // 1d transform
@@ -167,7 +168,28 @@ int main(int argc, char **argv)
 					  NULL, 1, fftsize/2 + 1,
 					  CUFFT_R2C,
 					  batch) != CUFFT_SUCCESS){
-		fprintf(stderr, "CUFFT Error: Unable to create cufftPlanMany for 2k\n");
+		fprintf(stderr, "CUFFT Error: Unable to create cufftPlanMany for 4k\n");
+		int myErr = err;
+		err = err -1;
+		return myErr;	
+	}
+
+	// 2k fft on 4k data size
+	printf("[planmany] 2k fft on 4k data.\n");
+	cufftHandle fwd_plan_2k_4k;
+
+	fftsize =2048;
+	batch = 64;
+	int n2[] = {fftsize};
+
+	if (cufftPlanMany(&fwd_plan_2k_4k,
+					  1, // 1d transform
+					  n2, // fft size 
+					  NULL, 1, fftsize,
+					  NULL, 1, fftsize/2 + 1,
+					  CUFFT_R2C,
+					  batch) != CUFFT_SUCCESS){
+		fprintf(stderr, "CUFFT Error: Unable to create cufftPlanMany for 2k on 4k\n");
 		int myErr = err;
 		err = err -1;
 		return myErr;	
@@ -190,7 +212,9 @@ int main(int argc, char **argv)
 	for (int i = 0; i < 100; i++) {
 		if (cufftExecR2C(fwd_plan_2k, (cufftReal*)d1, (cufftComplex*)d1_complex) != CUFFT_SUCCESS){
 			fprintf(stderr, "CUFFT error: ExecR2C 2K Forward failed");
-			return -4;	
+			int myErr = err;
+			err = err -1;
+			return myErr;	
 		}
 	}
 
@@ -211,7 +235,31 @@ int main(int argc, char **argv)
 	for (int i = 0; i < 100; i++) {
 		if (cufftExecR2C(fwd_plan_4k, (cufftReal*)d2, (cufftComplex*)d2_complex) != CUFFT_SUCCESS){
 			fprintf(stderr, "CUFFT error: ExecR2C 4K Forward failed");
-			return -5;	
+			int myErr = err;
+			err = err -1;
+			return myErr;	
+		}
+	}
+
+	cudaEventRecord(stop, 0);
+	cudaEventSynchronize(stop);
+	cudaEventElapsedTime(&gputime_ms, start, stop);
+	printf("runtime = %lf (ms)\n", gputime_ms * 0.01);
+
+	//--------//
+	// 2k fft on 4k data
+	//--------//
+	printf("[LOG] planmany 2k fft on 4k data.\n");
+
+	gputime_ms = 0.f;
+	cudaEventRecord(start, 0);
+
+	for (int i = 0; i < 100; i++) {
+		if (cufftExecR2C(fwd_plan_2k_4k, (cufftReal*)d3, (cufftComplex*)d3_complex) != CUFFT_SUCCESS){
+			fprintf(stderr, "CUFFT error: ExecR2C 2K Forward on 4K failed");
+			int myErr = err;
+			err = err -1;
+			return myErr;	
 		}
 	}
 
@@ -228,6 +276,7 @@ int main(int argc, char **argv)
 
 	cufftDestroy(fwd_plan_2k);
 	cufftDestroy(fwd_plan_4k);
+	cufftDestroy(fwd_plan_2k_4k);
 
 	cudaFree(d1);
 	cudaFree(d2);
