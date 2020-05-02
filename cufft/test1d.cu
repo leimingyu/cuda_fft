@@ -19,6 +19,13 @@ extern const int Trials;
 
 int main(int argc, char **argv)
 {
+	int targetDev = 0;
+	cudaDeviceProp prop;
+    cudaGetDeviceProperties(&prop, targetDev);
+	printf("Device name: %s\n", prop.name);
+
+	cudaSetDevice(targetDev);
+
 	/*
 	int sig_len = SigLen;
 	int fft_run = FFTRun;
